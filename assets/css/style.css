@@ -1,3 +1,4 @@
+@import url("piece.css");
 html,
 body {
     margin: 0px;
@@ -25,43 +26,4 @@ canvas {
 
 #sidebar-collapse {
     overflow-y: auto;
-}
-
-.list-pieces {
-    overflow-x: auto;
-}
-
-.piece-card {
-    min-width: max-content !important;
-    min-width: max-content !important;
-}
-
-.piece {
-    /* width: var(--cell-size)*5; */
-    /* height: 100px; */
-    width: 150px;
-    height: 150px;
-}
-
-.col,
-.cell {
-    padding: 0;
-    margin: 0;
-}
-
-col {
-    width: 50px;
-    height: 150px;
-}
-
-.cell {
-    border: 1px solid #ddd;
-    text-align: center;
-    width: 50px;
-    height: 50px;
-}
-
-.min-dim {
-    width: min-content;
-    height: min-content;
 }
