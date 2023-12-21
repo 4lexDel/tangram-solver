@@ -5,46 +5,50 @@ function html(strings, ...values) {
     return strings.reduce((result, str, i) => result + str + (values[i] || ''), '');
 }
 
-class ComponentUtils {
-    static getBindTemplate(obj, template) {
+
+class ExtendedComponent extends HTMLElement {
+    getBindTemplate(template) {
         // Utilisation d'une expression régulière pour trouver les motifs
         const motifRegex = /{{\s*([^}\s]+)\s*}}/g;
 
         // Remplacement des motifs dans la chaîne
         const result = template.replace(motifRegex, (match, contenu) => {
-            return `<span id="${contenu}">${obj[contenu]}</span>`;
+            let data = eval(`this.${contenu}`);
+            return `<span id="${contenu}">${data}</span>`;
         });
 
         return result;
     }
 
-    static defineBinding(obj, inputs, dom) {
-        console.log(dom);
+    defineBinding(inputs, dom) {
         inputs.forEach(input => {
-            Object.defineProperty(obj, input, {
+            let variableStr = `this._${input}`;
+            Object.defineProperty(this, input, {
                 get: function() {
-                    return obj[`_${input}`]; // Utilise une propriété privée pour stocker la valeur
+                    return eval(variableStr); // Utilise une propriété privée pour stocker la valeur
                 },
                 set: function(value) {
-                    obj[`_${input}`] = value;
-                    console.log(`set ${input} value to ${value}`);
+                    console.log(input);
+                    let formattedValue = typeof value === 'string' ? `"${value}"` : value;
+                    eval(`${variableStr} = '${formattedValue}'`);
+                    //console.log(`set ${input} value to ${value}`);
                     dom.querySelector(`#${input}`).innerHTML = value;
                 },
-                enumerable: true, // La propriété sera énumérable
-                configurable: true, // La propriété peut être modifiée ou supprimée ultérieurement
+                enumerable: true,
+                configurable: true,
             });
         });
+        console.log(Object.getPrototypeOf(this));
     }
 }
 
-class TestClass extends HTMLElement {
+class TestClass extends ExtendedComponent {
     constructor() {
         super();
         this.name = "Pierre";
         this.age = "45";
         this.sexe = true;
         this.color = "Rose";
-
         this.bg_color = "lightsalmon";
         this.text_color = "black";
     }
@@ -55,17 +59,14 @@ class TestClass extends HTMLElement {
 
     // attribute change
     attributeChangedCallback(property, oldValue, newValue) {
-        console.log("[ATTR] " + property);
         if (oldValue === newValue) return;
         this[property] = newValue;
-
-        console.log(`Attribute changed : old = ${oldValue} ; new = ${newValue}`);
     }
 
     // connect component
     connectedCallback() {
         let template = this.getTemplate();
-        let bindingTemplate = ComponentUtils.getBindTemplate(this, template);
+        let bindingTemplate = this.getBindTemplate(template);
 
         // create a Shadow DOM if not exists
         let shadow = this.attachShadow({ mode: 'closed' });
@@ -75,7 +76,7 @@ class TestClass extends HTMLElement {
         // set up binding
         let bindData = TestClass.observedAttributes;
         bindData.push("color");
-        ComponentUtils.defineBinding(this, bindData, shadow);
+        this.defineBinding(bindData, shadow);
     }
 
     getTemplate() {
