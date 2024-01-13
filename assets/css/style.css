@@ -12,6 +12,10 @@ body {
     background-color: #212529 !important;
 }
 
+:host {
+    background-color: red;
+}
+
 .main,
 #tangram,
 canvas {

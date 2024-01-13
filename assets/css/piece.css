@@ -10,8 +10,8 @@
 .piece {
     /* width: var(--cell-size)*5; */
     /* height: 100px; */
-    width: 150px;
-    height: 150px;
+    /* width: 150px;
+    height: 150px; */
 }
 
 #add-piece {

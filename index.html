@@ -8,12 +8,27 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
 </head>
 
 <body>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="assets/lib/p5.js"></script>
+    <!-- <script src="assets/lib/p5.js"></script> -->
+
+    <script>
+        function $(selector, dom = document) {
+            return dom.querySelector(selector);
+        }
+
+        const binaryArray = [
+            [true, false, true, true, true],
+            [false, true, false, true, false],
+            [true, true, false, true, true],
+            [true, true, false, false, true],
+            [false, true, false, false, true],
+        ];
+    </script>
 
     <div class="w-100 main d-flex gap-0 m-0 p-0">
         <div class="" id="tangram" style="flex: 1 0"></div>
@@ -33,7 +48,7 @@
                             <button type="button" class="btn btn-primary w-100 d-flex justify-content-around p-2" data-bs-toggle="modal" data-bs-target="#update-piece"><i class="bi bi-plus-slash-minus"></i>Update</button>
                         </li>
                         <li class="nav-item">
-                            <button type="button" class="btn btn-secondary w-100 d-flex justify-content-around p-2" onclick="document.getElementById('confirm-modal-component').showModal('TEST SHOW')"><i class="bi bi-info-circle"></i>Show</button>
+                            <button type="button" class="btn btn-secondary w-100 d-flex justify-content-around p-2" onclick="$('#confirm-modal-component').showModal('TEST SHOW')"><i class="bi bi-info-circle"></i>Show</button>
                         </li>
                         <li class="nav-item">
                             <button type="button" class="btn btn-warning w-100 d-flex justify-content-around p-2" onclick="openConfirmModal('Reset to default settings', ()=>console.log('Reset callback'))"><i class="bi bi-x-octagon"></i>Reset</button>
@@ -63,13 +78,22 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="list-pieces d-flex gap-3">
+                    <div class="list-pieces d-flex gap-3 py-4">
                         <div id="add-piece" class="card px-5">
                             <div class="d-flex justify-content-center align-items-center h-100">
                                 <button type="button"><i class="bi bi-plus-square"></i></button>
                             </div>
                         </div>
-
+                        <piece-component name="#1"></piece-component>
+                        <piece-component></piece-component>
+                        <piece-component></piece-component>
+                        <piece-component></piece-component>
+                        <piece-component></piece-component>
+                        <piece-component></piece-component>
+                        <piece-component></piece-component>
+                        <piece-component></piece-component>
+                        <piece-component></piece-component>
+                        <!-- <piece-component grid="binaryArray"></piece-component> -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -80,28 +104,10 @@
         </div>
     </div>
 
-    <!-- Confirm Modal -->
-    <!-- <div class="modal fade" id="confirm-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="confirm-modal-title">ConfirmModal</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="confirm-modal-content"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button id="confirm-modal-delete-button" type="button" class="btn btn-danger">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <confirm-modal id="confirm-modal-component"></confirm-modal>
 
     <script src="assets/components/confirm-modal.js"></script>
+    <script src="assets/components/piece.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/svgGrid.js"></script>
     <script src="assets/js/modal.js"></script>
