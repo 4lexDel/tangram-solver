@@ -1,5 +1,5 @@
 import { html, css } from '../../lib/lit-core.min.js';
-import { ExtendedLitElement } from '../../js/utils/ExtendedLitElement.js';
+import { ExtendedLitElement } from '../../js/utils/extended-lit-element.js';
 
 
 export class FormModalComponent extends ExtendedLitElement {
