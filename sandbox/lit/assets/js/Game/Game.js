@@ -75,7 +75,7 @@ export class Game extends GameBase { //A renommer ?
     }
 
     mouseAction(e) {
-        // console.log(e.button);
+        console.log(e.button);
         let coord = this.getMousePos(this.canvas, e);
 
         this.mouseX = parseInt((coord.x - this.mx) / this.d);
@@ -85,13 +85,13 @@ export class Game extends GameBase { //A renommer ?
         console.log(this.grid);
 
         if (e.button == 0) this.grid[this.mouseX][this.mouseY] += 1;
-        if (e.button == 2) this.grid[this.mouseX][this.mouseY] -= 1;
+        if (e.button == 2) this.grid[this.mouseX][this.mouseY] = 0;
 
         let min = 0;
         let max = 13;
 
-        if (this.grid[this.mouseX][this.mouseY] == min - 1) this.grid[this.mouseX][this.mouseY] = max;
-        if (this.grid[this.mouseX][this.mouseY] == max + 1) this.grid[this.mouseX][this.mouseY] = min;
+        // if (this.grid[this.mouseX][this.mouseY] == min - 1) this.grid[this.mouseX][this.mouseY] = max;
+        if (this.grid[this.mouseX][this.mouseY] == max + 1) this.grid[this.mouseX][this.mouseY] = min + 1;
     }
 
     getMousePos(canvas, evt) {
@@ -126,7 +126,7 @@ export class Game extends GameBase { //A renommer ?
         this.prevTick = now;
         /*--------------------------------------------------------------*/
 
-        //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.width);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.width);
         // this.ctx.fillStyle = "rgb(210,210,210)";
         // this.ctx.fillStyle = "#F4D527";
         // this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -136,26 +136,24 @@ export class Game extends GameBase { //A renommer ?
     }
 
     displayGrid() {
-        this.ctx.strokeStyle = "rgb(80,80,80)";
-        this.ctx.lineWidth = 0.5;
-
         for (var x = 0; x < this.grid.length; x++) {
             for (var y = 0; y < this.grid[0].length; y++) {
                 switch (this.grid[x][y]) {
                     case -1:
-                        this.ctx.fillStyle = "transparent   ";
+                        this.ctx.fillStyle = "beige";
                         break;
                     case 0:
-                        this.ctx.fillStyle = "beige";
+                        this.ctx.fillStyle = "transparent";
                         break;
                     default:
                         this.ctx.fillStyle = this.colorHexa[this.grid[x][y] - 1];
-
                         this.ctx.fillRect(this.mx + x * this.d, this.my + y * this.d, this.d, this.d);
+
+                        this.ctx.strokeStyle = "rgb(80,80,80)";
+                        this.ctx.lineWidth = 0.2;
+                        this.ctx.strokeRect(this.mx + x * this.d, this.my + y * this.d, this.d, this.d);
                         break;
                 }
-
-                // this.ctx.strokeRect(this.mx + x * this.d, this.my + y * this.d, this.d, this.d);
             }
         }
     }
