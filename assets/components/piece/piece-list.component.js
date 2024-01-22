@@ -1,5 +1,6 @@
 import { html, css } from '../../lib/lit-core.min.js';
 import { ExtendedLitElement } from '../../js/utils/ExtendedLitElement.js';
+import { ArrayUtils } from '../../js/utils/array-utils.js';
 
 
 export class PieceListComponent extends ExtendedLitElement {
@@ -104,16 +105,8 @@ export class PieceListComponent extends ExtendedLitElement {
     }
 
     resetPieceList() {
-        this.grids = this.cloneNDArray(this.defaultGrids);
-        this.label = this.cloneNDArray(this.defaultLabel);
-    }
-
-    cloneNDArray(originalArray) {
-        function cloneArray(array) {
-            return Array.isArray(array) ? array.map(cloneArray) : array;
-        }
-
-        return cloneArray(originalArray);
+        this.grids = ArrayUtils.cloneNDArray(this.defaultGrids);
+        this.label = ArrayUtils.cloneNDArray(this.defaultLabel);
     }
 
     firstUpdated() {

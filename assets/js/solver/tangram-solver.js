@@ -1,7 +1,14 @@
 export class TangramSolver {
-    constructor(pattern, pieces) {
+    constructor(pattern, piecesSelected) {
+        this.pattern = pattern;
+        this.piecesSelected = piecesSelected;
+    }
+
+    initPieces() {
 
     }
 
+    solve() {
 
+    }
 }
