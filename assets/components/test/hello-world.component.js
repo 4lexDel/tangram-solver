@@ -1,5 +1,5 @@
 import { html, css } from '../../lib/lit-core.min.js';
-import { ExtendedLitElement } from '../../js/ExtendedLitElement.js';
+import { ExtendedLitElement } from '../../js/utils/ExtendedLitElement.js';
 
 
 export class HelloWorldComponent extends ExtendedLitElement {

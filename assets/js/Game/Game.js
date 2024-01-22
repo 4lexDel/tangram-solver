@@ -1,4 +1,4 @@
-import { GameBase } from "./GameBase.js";
+import { GameBase } from "./game-base.js";
 
 export class Game extends GameBase { //A renommer ?
     constructor(canvas, grid) {

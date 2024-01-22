@@ -1,6 +1,6 @@
 import { html, css } from '../lib/lit-core.min.js';
-import { ExtendedLitElement } from '../js/ExtendedLitElement.js';
-import { Game } from '../js/Game/Game.js';
+import { ExtendedLitElement } from '../js/utils/ExtendedLitElement.js';
+import { Game } from '../js/game/game.js';
 
 
 export class TangramComponent extends ExtendedLitElement {

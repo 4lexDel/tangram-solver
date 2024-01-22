@@ -1,4 +1,4 @@
-import { LitElement } from '../lib/lit-core.min.js';
+import { LitElement } from '../../lib/lit-core.min.js';
 
 export class ExtendedLitElement extends LitElement {
     static _globalCssStylesheets = null;
