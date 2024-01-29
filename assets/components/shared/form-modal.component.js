@@ -5,7 +5,7 @@ import { ExtendedLitElement } from '../../js/utils/extended-lit-element.js';
 export class FormModalComponent extends ExtendedLitElement {
     static styles = css `
         #form-modal{
-            display: none;
+            display: hidden;
         }
     `;
 
@@ -21,7 +21,7 @@ export class FormModalComponent extends ExtendedLitElement {
         this.defaultModalTitle = "Form modal"
         this.modalTitle = this.defaultModalTitle;
 
-        this.body
+        this.body = null;
     }
 
     firstUpdated() {
@@ -29,7 +29,7 @@ export class FormModalComponent extends ExtendedLitElement {
 
         this.formModal = new bootstrap.Modal(this.shadowRoot.getElementById('form-modal')); //this.shadow.querySelector("#confirm-modal");
 
-        this.shadowRoot.querySelector('.modal-body').innerHTML = this.body;
+        // this.shadowRoot.querySelector('.modal-body').innerHTML = this.body;
     }
 
     render() {
@@ -42,6 +42,7 @@ export class FormModalComponent extends ExtendedLitElement {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body"> 
+                            <slot name="body"></slot>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click=${this.onCancelButton}>Cancel</button>

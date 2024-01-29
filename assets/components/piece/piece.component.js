@@ -74,8 +74,19 @@ export class PieceComponent extends ExtendedLitElement {
     attributeChangedCallback(name, oldVal, newVal) {
         if (name === 'grid' && oldVal !== newVal) {
             this.grid = JSON.parse(newVal);
+            console.log("GRID UPDATE");
+            console.log(this.grid);
+            this.requestUpdate();
         } else super.attributeChangedCallback(name, oldVal, newVal);
     }
+
+    // refreshGrid() {
+    //     let cells = this.shadowRoot.querySelectorAll('.grid .cell');
+
+    //     cells.forEach((cell) => {
+
+    //     });
+    // }
 
     render() {
         return html `

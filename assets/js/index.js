@@ -6,4 +6,5 @@ import { ConfirmModalComponent } from "../components/shared/confirm-modal.compon
 import { FormModalComponent } from "../components/shared/form-modal.component.js"
 import { SidebarComponent } from "../components/shared/sidebar.component.js"
 import { TangramComponent } from "../components/tangram.component.js"
+import { TestSlotComponent } from "../components/test-slot.component.js"
 import { HelloWorldComponent } from "../components/test/hello-world.component.js"

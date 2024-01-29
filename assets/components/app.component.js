@@ -28,6 +28,12 @@ export class AppComponent extends ExtendedLitElement {
 
     render() {
         return html `
+            <!-- <test-slot-component>
+                <h2 slot="secondary">TEST SLOT H2</h2>
+                <p slot="content">CONTENT1</p>
+                <p slot="content">CONTENT2</p>
+                <test-slot-component slot="content"></test-slot-component>
+            </test-slot-component> -->
             <div class="w-100 main d-flex gap-0 m-0 p-0">
                 <div class="content" style="flex: 1 0">
                     <tangram-component></tangram-component>
@@ -40,11 +46,7 @@ export class AppComponent extends ExtendedLitElement {
                 </sidebar-component>
             </div>
 
-            <form-modal-component id="update-piece-modal" 
-            body='
-            <piece-list-component></piece-list-component>
-            '>
-            </form-modal-component>
+            <piece-list-component id="update-piece-modal"></piece-list-component>
 
             <form-modal-component id="simulation-settings-modal"
             .body='
@@ -67,8 +69,7 @@ export class AppComponent extends ExtendedLitElement {
     }
 
     resetPieceList() {
-        let element = this.shadowRoot.querySelector('#update-piece-modal').shadowRoot;
-        console.log(element);
+        this.shadowRoot.querySelector('#update-piece-modal').resetPieceList();
     }
 
     handlePostEvent(event) {
