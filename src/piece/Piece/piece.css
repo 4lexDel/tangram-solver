@@ -1,0 +1,46 @@
+.card-header {
+    display: flex;
+    justify-content: center;
+}
+
+.piece-card {
+    padding: 10px;
+    border: 2px solid grey;
+    min-width: 200px;
+    min-height: 300px;
+    /* // min-width: max-content !important; */
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 0px;
+    /* Espacement entre les cellules */
+}
+
+.cell {
+    width: 35px;
+    height: 35px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+.cell.edit {
+    cursor: pointer;
+}
+
+.grid .cell.fill {
+    background-color: black;
+    color: white;
+}
+
+.grid .cell.edit.fill {
+    background-color: #0D6EFD;
+}
+
+.grid .cell.fill.diseable:not(.edit) {
+    background-color: #bbbbbb;
+}
