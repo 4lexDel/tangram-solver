@@ -59,7 +59,7 @@ export function Tangram() {
             clearTimeout(timeoutId);
             timeoutId = setTimeout(() => {
                 window.requestAnimationFrame(() => {
-                    console.log("RESIZE");
+                    // console.log("RESIZE");
                     game.resize(containerRef.current.clientWidth, containerRef.current.clientHeight);
                 });
             }, 100); // Debounce time

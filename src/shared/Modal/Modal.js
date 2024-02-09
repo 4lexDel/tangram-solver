@@ -1,7 +1,7 @@
 import style from "./modal.css";
 
 
-export function Modal({children, onOk, onClose, active}) {
+export function Modal({children, onOk, onClose, active, title}) {
     return (
       <>
         {active &&
@@ -9,7 +9,7 @@ export function Modal({children, onOk, onClose, active}) {
             <div className='back' onClick={onClose}></div>
             <div className='container'>
                 <div className='header'>
-                    <h1 className='title fs-2'>Modal title</h1>
+                    <h1 className='title fs-2'>{title}</h1>
                     <button className='close btn btn-danger' onClick={onClose}>X</button>
                 </div>
                 <hr />
@@ -17,7 +17,7 @@ export function Modal({children, onOk, onClose, active}) {
                 <hr />
                 <div className='footer'>
                     <button className='btn btn-danger' onClick={onClose}>Cancel</button>
-                    <button className='btn btn-primary' onClick={() => onOk && onOk("MON CONTENU")}>Ok</button>
+                    <button className='btn btn-primary' onClick={() => onOk && onOk()}>Ok</button>
                 </div>
             </div>
         </div>

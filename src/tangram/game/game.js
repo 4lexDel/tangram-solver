@@ -130,7 +130,7 @@ export class Game extends GameBase { //A renommer ?
         this.prevTick = now;
         /*--------------------------RENDER------------------------------*/
         if (!this.isRenderNeed) return; // Use to avoid to much rendering
-        console.log("RENDER");
+        // console.log("RENDER");
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.displayGrid();

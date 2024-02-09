@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import style from './sidebar.css'
 
-export function Sidebar({onUpdate}) {
+export function Sidebar({onUpdate, onReset, onStart}) {
     const [isCollapse, setIsCollapse] = useState(false);
 
     const componentStyles = {
         backgroundColor: "#212529",
         height: "100vh"
     };
-
-    // const hide
 
     return (
         <div style={componentStyles}> 
@@ -31,8 +29,11 @@ export function Sidebar({onUpdate}) {
                                 Update
                             </button>
                         </li>
-                        <li className="nav-item">
-                            <button type="button" className="btn btn-warning w-100 d-flex justify-content-around p-2"><i className="bi bi-x-octagon"></i>Reset</button>
+                        <li onClick={onReset} className="nav-item">
+                            <button type="button" className="btn btn-warning w-100 d-flex justify-content-around p-2">
+                                <i className="bi bi-x-octagon"></i>
+                                Reset
+                            </button>
                         </li>
                     </ul>
                     <br />
@@ -43,8 +44,11 @@ export function Sidebar({onUpdate}) {
                         <li className="nav-item">
                             <button type="button" className="btn btn-secondary w-100 d-flex justify-content-around p-2"><i className="bi bi-info-circle"></i>Settings</button>
                         </li>
-                        <li>
-                            <button type="button" className="btn btn-success w-100 d-flex justify-content-around p-2 text-nowrap"><i className="bi bi-play"></i>Solve Tangram</button>
+                        <li onClick={onStart}>
+                            <button type="button" className="btn btn-success w-100 d-flex justify-content-around p-2 text-nowrap">
+                                <i className="bi bi-play"></i>
+                                Solve Tangram
+                            </button>
                         </li>
                     </ul>
                     <hr />

@@ -19,3 +19,8 @@ Tangram {
 Sidebar {
     flex: 0 15;
 }
+
+p {
+    margin: 0;
+    text-align: center;
+}

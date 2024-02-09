@@ -6,9 +6,10 @@
 .piece-card {
     padding: 10px;
     border: 2px solid grey;
+    width: min-content;
     min-width: 200px;
-    min-height: 300px;
-    /* // min-width: max-content !important; */
+    min-height: 315px;
+    justify-content: space-between;
 }
 
 .grid {
@@ -16,6 +17,7 @@
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 0px;
     /* Espacement entre les cellules */
+    width: fit-content;
 }
 
 .cell {
@@ -43,4 +45,9 @@
 
 .grid .cell.fill.diseable:not(.edit) {
     background-color: #bbbbbb;
+}
+
+p {
+    margin: 0;
+    font-weight: bold;
 }
