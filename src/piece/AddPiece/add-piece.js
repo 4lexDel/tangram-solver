@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import style from "./add-piece.css";
-import { SharedService } from "../../shared/services/shared-service";
-import { Modal } from "../../shared/Modal/Modal";
 
 export function AddPiece({}) {
   const [label, setLabel] = useState("");

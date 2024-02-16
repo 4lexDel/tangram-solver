@@ -8,6 +8,16 @@ export class GameBase {
         // window.onresize = (e) => {
         //     this.canvas.resize();
         // };
+
+        this.mouseX = 0;
+        this.mouseY = 0;
+        
+        this.onMouseDown = (callback) => {
+            this.canvas.onmousedown = (e) => {
+                this.refreshMouseCoord(e);
+                callback(e);
+            };
+        }
     }
 
     resize(width, height) {
@@ -37,5 +47,27 @@ export class GameBase {
         });
 
         return Promise.all(promises);
+    }
+
+    getMousePos(canvas, evt) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+            x: evt.clientX - rect.left,
+            y: evt.clientY - rect.top
+        };
+    }
+
+    // refreshTouchCoord(e) {
+    //     let coord = getTouchPos(this.canvas, e);
+
+    //     this.mouseX = coord.x;
+    //     this.mouseY = coord.y;
+    // }
+
+    refreshMouseCoord(e) {
+        let coord = this.getMousePos(this.canvas, e);
+
+        this.mouseX = coord.x;
+        this.mouseY = coord.y;
     }
 }

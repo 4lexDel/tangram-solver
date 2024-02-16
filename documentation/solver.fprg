@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.11">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="alede"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2024-02-09 01:56:10 "/>
+        <attribute name="created" value="YWxlZGU7TEFQVE9QLVFIUlNURVBTOzIwMjQtMDItMDk7IjAxOjE1OjU1ICI7Mjg0MQ=="/>
+        <attribute name="edited" value="YWxlZGU7TEFQVE9QLVFIUlNURVBTOzIwMjQtMDItMDk7IjAxOjU2OjEwICI7MjsyOTQ2"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="pieceList" type="Integer" array="True" size="nbPiece"/>
+            <for variable="i" start="0" end="nbPiece" direction="inc" step="1">
+                <assign variable="piece" expression="pieceList[i]"/>
+                <for variable="j" start="0" end="nbTransformation" direction="inc" step="1">
+                    <assign variable="pieceState" expression="piece[j]"/>
+                    <if expression="incoh&#233;rence(pieceState) == vrai">
+                        <then/>
+                        <else/>
+                    </if>
+                </for>
+            </for>
+        </body>
+    </function>
+    <function name="incoh&#233;rence" type="Boolean" variable="">
+        <parameters>
+            <parameter name="pieceState" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <if expression="placable">
+                <then>
+                    <if expression="espace %5 = 0">
+                        <then>
+                            <if expression="espace-5-implacable">
+                                <then>
+                                    <if expression="piece-enfant-implacable">
+                                        <then>
+                                            <output expression="vrai" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                </then>
+                                <else/>
+                            </if>
+                        </then>
+                        <else/>
+                    </if>
+                </then>
+                <else/>
+            </if>
+            <output expression="faux" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>

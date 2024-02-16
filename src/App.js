@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Sidebar } from './shared/Sidebar';
-import { Tangram } from './tangram/Tangram';
+import Tangram from './tangram/Tangram';
 import { Modal } from './shared/Modal/Modal';
 import { PieceList } from './piece/PieceList/PieceList';
 import { PieceService } from './piece/services/piece-service.js';
 
 
 export default function MyApp() {
+  const tangramRef = useRef(null);
+
   const [updateActive, setUpdateActive] = useState(false);
   const [resetActive, setResetActive] = useState(false);
   const [startActive, setStartActive] = useState(false);
@@ -55,13 +57,17 @@ export default function MyApp() {
   }
 
   const startSimulation = () => {
-    console.log("START");
+    // console.log("START");
+    // console.log(tangramRef);
+    setTimeout(() => {
+      tangramRef.current.solve(finalPieceListState);
+    }, 5);
   }
 
   return (
     <div>
       <div className="w-100 main d-flex gap-0 m-0 p-0">
-          <Tangram></Tangram>
+          <Tangram ref={tangramRef}></Tangram>
           <Sidebar onUpdate={handleUpdate} onReset={handleReset} onStart={handleStart}></Sidebar>
       </div>
       {updateActive &&
@@ -70,12 +76,12 @@ export default function MyApp() {
         </Modal>
       }
       {resetActive &&
-        <Modal active={resetActive} title={"Confirm"} onOk={() => {resetPieceList();closeResetModal()}} onClose={closeResetModal}>
+        <Modal active={resetActive} title={"Confirm"} onOk={() => {resetPieceList();closeResetModal();}} onClose={closeResetModal}>
           <p>Reset piece list?</p>
         </Modal>
       }
       {startActive &&
-        <Modal active={startActive} title={"Confirm"} onOk={() => {startSimulation();closeStartModal()}} onClose={closeStartModal}>
+        <Modal active={startActive} title={"Confirm"} onOk={() => {closeStartModal();startSimulation();}} onClose={closeStartModal}>
           <p>Start simulation?</p>
         </Modal>
       }

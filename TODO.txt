@@ -1,0 +1,5 @@
+- Bouton aide
+- Option sur la création de pattern
+	- reset
+	- preset
+- Ajout de pièces
