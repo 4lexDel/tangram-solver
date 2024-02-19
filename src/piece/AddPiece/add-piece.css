@@ -1,0 +1,22 @@
+.card-header {
+    display: flex;
+    justify-content: center;
+}
+
+.piece-card {
+    padding: 10px;
+    border: 2px solid grey;
+    width: min-content;
+    min-width: 200px;
+    min-height: 315px;
+    justify-content: space-between;
+}
+
+p {
+    margin: 0;
+    font-weight: bold;
+}
+
+input {
+    border-radius: 3px;
+}

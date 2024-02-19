@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    padding: 0;
+}
+
+code {
+    font-size: 1.2em;
+}
+
+Tangram {
+    flex: 1 0;
+}
+
+Sidebar {
+    flex: 0 15;
+}
+
+p {
+    margin: 0;
+    text-align: center;
+}

@@ -1,0 +1,16 @@
+// {
+//     "workbench.colorCustomizations": {
+//       "activityBar.background": "#ffffff", // Default background color
+  
+//       // Example: Change background color for files in the "src" directory
+//       "editorGroup.background": {
+//         "src": "#f0f0f0" // Change background color for files in the "src" directory
+//       },
+  
+//       // Example: Change background color for files in the "test" directory
+//       "sideBar.background": {
+//         "public": "#e6ffe6" // Change background color for files in the "test" directory
+//       }
+//     }
+//   }
+  

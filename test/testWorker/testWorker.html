@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worker</title>
+</head>
+
+<body>
+    <script>
+        const myWorker = new Worker('./worker.js');
+        let obj = {
+            val: 0
+        };
+        console.log(`obj.val = ${obj.val}`);
+        console.log(1);
+        myWorker.postMessage(obj);
+        console.log(2);
+        myWorker.onmessage = function(event) {
+            console.log('Received result from worker:', event.data);
+            console.log(`obj.val = ${obj.val}`);
+            console.log(obj);
+        }; //myWorker.terminate();
+    </script>
+</body>
+
+</html>

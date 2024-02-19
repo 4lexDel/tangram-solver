@@ -1,0 +1,20 @@
+#=============== Algorithme ===============#
+
+1. Appliquer toutes les transormations en classant les pièces :
+	- Rotation
+	- Inversion
+
+2. Supprimer les duplications
+
+3. Lancement de l'arbre de recherche :
+	a. Placer la pièce suivante (contenant les transformations associées)
+	b. Vérifier incohérences
+		- Pièce placable
+		- Espace != %5
+		- Vérifier les impossibilités sur des espaces de 5 (si aucune pièce est placable alors impossible)
+		- Si pièce enfant et ses transformations implacable
+		==> Si incohérence => [alors déplacer la pièce et {étape b}]
+			Si fin des transformations => Pièce implacable = incohérence [on retire la pièce enfant et la parent est considéré comme implacable]
+		==> Sinon si plus de pièces à placer alors [retourner les pièces]
+		==> Sinon [{étape a}]
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function cropMatrix(matrix) {
+            let minX = matrix[0].length;
+            let maxX = 0;
+            let minY = matrix.length;
+            let maxY = 0;
+
+            // Find the bounds of the non-zero values
+            for (let i = 0; i < matrix.length; i++) {
+                for (let j = 0; j < matrix[i].length; j++) {
+                    if (matrix[i][j] !== 0) {
+                        minX = Math.min(minX, j);
+                        maxX = Math.max(maxX, j);
+                        minY = Math.min(minY, i);
+                        maxY = Math.max(maxY, i);
+                    }
+                }
+            }
+
+            // Create the cropped matrix
+            let croppedMatrix = [];
+            for (let i = minY; i <= maxY; i++) {
+                let row = [];
+                for (let j = minX; j <= maxX; j++) {
+                    row.push(matrix[i][j]);
+                }
+                croppedMatrix.push(row);
+            }
+            return croppedMatrix;
+        }
+
+        console.log("BEFORE CROP");
+
+        let matrixToCrop = [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 0, 0, 0],
+            [0, 1, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0],
+
+        ];
+
+        console.log(matrixToCrop);
+
+        let croppedMatrix = cropMatrix(matrixToCrop);
+
+        console.log("AFTER CROP");
+
+        console.log(croppedMatrix);
+    </script>
+</body>
+
+</html>
