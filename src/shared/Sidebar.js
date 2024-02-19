@@ -6,7 +6,8 @@ export function Sidebar({onUpdate, onReset, onStart, onAbort, onSelect, simulati
 
     const componentStyles = {
         backgroundColor: "#212529",
-        height: "100vh"
+        height: "100vh",
+        overflow:"auto",
     };
 
     const activateSimulationState = () => {
