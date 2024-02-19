@@ -1,0 +1,8 @@
+label {
+    font-weight: bold;
+}
+
+select {
+    border: 2px solid black;
+    padding: 0.1px 10px;
+}

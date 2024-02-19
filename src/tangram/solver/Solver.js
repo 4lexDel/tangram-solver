@@ -1,18 +1,18 @@
 import { SharedService } from "../../shared/services/shared-service";
 
 export class Solver {
-    constructor(pattern, gameRef=null) {
+    constructor(pattern) {
         this.sharedService = new SharedService();
 
         this.initialPattern = pattern;
 
-        this.gameRef = gameRef;
+        this.nbIteration = 0;
     }
 
     getAllPiecesCombinations(pieceObjList) {       
         let pieceList = pieceObjList.map((piece) => this.sharedService.cropMatrix(piece["data"]));
 
-        console.log(pieceList);
+        // console.log(pieceList);
 
         let finalPieceList = [];
 
@@ -66,29 +66,31 @@ export class Solver {
         }
     }
 
-    solve(pieceList, pattern=null) {
+    solve(pieceList, pattern=null, callback=null) {
+        this.nbIteration = 0;
+
         // console.log(pattern);
         let allPieces = this.getAllPiecesCombinations(pieceList);
         allPieces = allPieces.sort(() => (Math.random() > .5) ? 1 : -1);
 
-        // console.log(allPieces);
-
         if(!pattern) pattern = this.sharedService.cloneNDArray(this.initialPattern);
         else this.parsePattern(pattern);
 
-        pattern = this.process(pattern, allPieces, 1);
+        pattern = this.process(pattern, allPieces, 1, callback);
 
         return pattern;
     }
 
-    process(pattern, pieceList, level) {
-        // if(this.gameRef){
-        //    this.gameRef.grid = pattern;
-        //     setTimeout(() => {
-        //         this.gameRef.drawProcess();
-        //     }, 5); 
-        // }
-        if (pieceList.length == 12-12) return pattern; // No pieces to place = win !
+    process(pattern, pieceList, level, callback) {
+        this.nbIteration++;
+
+        if(callback){
+            if(pieceList.length == 0){
+                callback(pattern, true);
+            }
+            else if(this.nbIteration % 100 == 0) callback(pattern);
+        }
+        if (pieceList.length == 0) return pattern; // No pieces to place = win !
 
         const pieceTransformations = pieceList[0];
 
@@ -103,11 +105,12 @@ export class Solver {
                         
                         this.placePiece(piece, x, y, newPattern, level);  // Place pieces
                         // console.log(newPattern);
-                        if (!this.isWrongAreaExist(newPattern)) {    // Prunning !
-                            let newPieceList = this.sharedService.cloneNDArray(pieceList);
-                            newPieceList.shift();
+                        let newPieceList = this.sharedService.cloneNDArray(pieceList);
+                        newPieceList.shift();
+
+                        if (!this.isWrongAreaExist(newPattern, newPieceList)) {    // Prunning !
                             // console.log("newPieceList");
-                            let result = this.process(newPattern, newPieceList, level + 1);
+                            let result = this.process(newPattern, newPieceList, level + 1, callback);
 
                             if (result) return result;       // Return result = win !!
                             // Else nothing so piece will be moved
@@ -142,80 +145,51 @@ export class Solver {
         return true;
     }
 
-    isWrongAreaExist(pattern) {
+    isWrongAreaExist(pattern, pieceList) {
         // Pattern definition
         // -1 : not available
         // 0 : available
         // other : block
-        let patternToCount = this.sharedService.cloneNDArray(pattern);
 
-        let value = 0;  // Nb of unit by area
+        let cropAreas = this.sharedService.getCropAreas(pattern);
 
-        while (true) {
-            value = this.countBlocksInNextAreaAvailable(patternToCount);
+        for (let i = 0; i < cropAreas.length; i++) {
+            const cropArea = cropAreas[i];
+            
+            if(cropArea.count %5 != 0) return true; 
+            else if(cropArea.count == 5){
+                // console.log("piece remaining");
+                // console.log(pieceList);
 
-            if (value == -1) return false;
-            else if (value % 5 != 0) return true;
-        }
-
-    }
-
-    countBlocksInNextAreaAvailable(pattern) {
-        let originCoord = this.getFirstBlockCoordAvailable(pattern);
-        if (!originCoord) return -1; // No blocks available
-
-        let counter = { val: 1 }; // Use an object for ref parameters exchange
-
-        pattern[originCoord.x][originCoord.y] = -1;
-        this.countAreaBlocks(pattern, originCoord, counter);
-
-        return counter.val;
-    }
-
-    getFirstBlockCoordAvailable(pattern) {
-        for (let x = 0; x < pattern.length; x++) {
-            for (let y = 0; y < pattern[0].length; y++) {
-                if (pattern[x][y] == 0) return { x: x, y: y };
+                let patternWorks = false;
+                for (let j = 0; j < pieceList.length; j++) {
+                    const pieceTransformations = pieceList[j];
+                    
+                    for (let k = 0; k < pieceTransformations.length; k++) {
+                        const piece = pieceTransformations[k];
+                        
+                        if(cropArea.area.length == piece.length && cropArea.area[0].length == piece[0].length) {
+                            let pieceWorks = true;
+                            for(let x = 0; x < piece.length; x++){
+                                for(let y = 0; y < piece[0].length; y++){
+                                    if(cropArea.area[x][y] >= 100 && !piece[x][y]){ // Block value must be greater or equal than 100
+                                        pieceWorks = false;
+                                    }
+                                }
+                            }
+                            if(pieceWorks){
+                                patternWorks = true;
+                                break;
+                            }
+                        }
+                    }
+                    if(patternWorks) break;
+                }
+                if(!patternWorks) return true;
             }
         }
+        // RETIRER LA PIECE QUAND UNE HYPOTHESE SE VERIFIE DANS LE CAS OU 2 AREAS SONT IDENTIQUES
 
-        return null;
-    }
-
-    countAreaBlocks(pattern, coord, counter) {
-        // recursive function that count all the blocks in an area
-        let blockCoordsAvailable = this.getNeighboorsAvailable(pattern, coord);
-        // console.log(blockCoordsAvailable);
-
-        blockCoordsAvailable.forEach(blocCoord => {
-            counter.val++;
-            pattern[blocCoord.x][blocCoord.y] = -1; // To avoid duplicate count
-        });
-
-        blockCoordsAvailable.forEach(blocCoord => {
-            this.countAreaBlocks(pattern, blocCoord, counter);
-        });
-    }
-
-    getNeighboorsAvailable(pattern, coord) {
-        let directions = [
-            [0, -1],
-            [-1, 0],
-            [1, 0],
-            [0, 1],
-        ]
-
-        let coordsAvailable = [];
-
-        directions.forEach(d => {
-            d[0] += coord.x;
-            d[1] += coord.y;
-
-            if (d[0] >= 0 && d[0] < pattern.length && d[1] >= 0 && d[1] < pattern[0].length) {
-                if (pattern[d[0]][d[1]] == 0) coordsAvailable.push({ x: d[0], y: d[1] })
-            }
-        });
-
-        return coordsAvailable;
+        return false;
     }
 }

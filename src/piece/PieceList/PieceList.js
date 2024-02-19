@@ -29,7 +29,7 @@ export function PieceList({ onListUpdate, pieceList }) {
 
   return (
     <div className="d-flex gap-3 py-4 overflow-x-auto justify-content-start pieces">
-      <AddPiece></AddPiece>
+      {/* <AddPiece></AddPiece> */}
       {pieceComponents}
     </div>
   );

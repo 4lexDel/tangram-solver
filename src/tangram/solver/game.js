@@ -1,6 +1,7 @@
 import { Solver } from "./Solver.js";
 import { GameBase } from "./game-base.js";
 
+
 export class Game extends GameBase { //A renommer ?
     constructor(canvas, grid) {
         super(canvas, grid);
@@ -30,11 +31,12 @@ export class Game extends GameBase { //A renommer ?
         // const urls = [];
 
         /*----------------Draw settings----------*/
-        this.FPS = 20;
+        this.FPS = 5;
         this.prevTick = 0;
 
         /*----------------Solver-----------------*/
         this.solver = new Solver(grid, this);
+        // this.solverWorker = new Worker();
 
         /**---------------START----------------- */
         this.isRenderNeed = true;
@@ -58,11 +60,11 @@ export class Game extends GameBase { //A renommer ?
         this.updateCell(x, y, e.button);
     }
 
-    updateCell(x, y, eventType=0) {
+    updateCell(x, y, eventType = 0) {
         // let min = 0;
         // let max = 13;
 
-        if(eventType==0) this.grid[x][y] = 0;
+        if (eventType == 0) this.grid[x][y] = 0;
         else this.grid[x][y] = -1;
 
         // if (this.grid[x][y] == max + 1) this.grid[x][y] = min + 1;
@@ -70,12 +72,20 @@ export class Game extends GameBase { //A renommer ?
         this.isRenderNeed = true;
     }
 
-    solve(pieceList){
+    solve(pieceList) {
         let result = this.solver.solve(pieceList, this.grid);
 
         result && (this.grid = result);
 
         this.isRenderNeed = true;
+
+        // this.solverWorker.postMessage({pattern: this.grid, pieceList: pieceList});
+        // this.solverWorker.onmessage = function (e) {
+        //     console.log("FROM MAIN THREAD");
+        //     console.log(e);
+        //     // this.solverWorker.terminate();
+        // };
+        // this.solverWorker.postMessage({ data: "data" });
     }
 
     draw() {
@@ -91,8 +101,8 @@ export class Game extends GameBase { //A renommer ?
         this.drawProcess();
     }
 
-    drawProcess(){
-        console.log("drawProcess");
+    drawProcess() {
+        // console.log("drawProcess");
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.displayGrid();
 
@@ -123,7 +133,7 @@ export class Game extends GameBase { //A renommer ?
         }
     }
 
-    displayCellBorder(x, y, d){
+    displayCellBorder(x, y, d) {
         this.ctx.strokeStyle = "rgb(80,80,80)";
         this.ctx.lineWidth = 0.2;
         this.ctx.strokeRect(x, y, d, d);

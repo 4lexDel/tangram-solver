@@ -10,26 +10,18 @@
 <body>
     <script>
         const myWorker = new Worker('./worker.js');
-
         let obj = {
             val: 0
         };
-
         console.log(`obj.val = ${obj.val}`);
-
         console.log(1);
         myWorker.postMessage(obj);
         console.log(2);
-
-        // Set up event listener for messages from the worker
         myWorker.onmessage = function(event) {
             console.log('Received result from worker:', event.data);
             console.log(`obj.val = ${obj.val}`);
             console.log(obj);
-        };
-
-
-        //myWorker.terminate();
+        }; //myWorker.terminate();
     </script>
 </body>
 
