@@ -49,7 +49,7 @@ export class Game extends GameBase { //A renommer ?
         this.onMouseDown((e) => this.mouseAction(e));
     }
 
-    mouseAction(e) {
+    mouseAction(_) {
         let x = parseInt((this.mouseX - this.mx) / this.d);
         let y = parseInt((this.mouseY - this.my) / this.d);
 
@@ -57,17 +57,11 @@ export class Game extends GameBase { //A renommer ?
             return;
         }
 
-        this.updateCell(x, y, e.button);
+        this.updateCell(x, y);
     }
 
-    updateCell(x, y, eventType = 0) {
-        // let min = 0;
-        // let max = 13;
-
-        if (eventType == 0) this.grid[x][y] = 0;
-        else this.grid[x][y] = -1;
-
-        // if (this.grid[x][y] == max + 1) this.grid[x][y] = min + 1;
+    updateCell(x, y) {
+        this.grid[x][y] = this.grid[x][y] === -1 ? 0 : -1;
 
         this.isRenderNeed = true;
     }

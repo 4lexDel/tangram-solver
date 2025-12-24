@@ -1,7 +1,7 @@
 .container {
     min-width: 300px;
+    width: 90vw;
     max-width: 600px;
-    width: max-content;
     margin: auto;
     z-index: 101;
     position: absolute;
