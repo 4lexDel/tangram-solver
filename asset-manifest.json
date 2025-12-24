@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/tangram-solver/static/css/main.73a2e6d5.css",
-    "main.js": "/tangram-solver/static/js/main.5c1b83a0.js",
+    "main.css": "/tangram-solver/static/css/main.8fa085e6.css",
+    "main.js": "/tangram-solver/static/js/main.96bf224e.js",
     "static/js/811.631b5a36.chunk.js": "/tangram-solver/static/js/811.631b5a36.chunk.js",
     "static/media/bootstrap-icons.woff?": "/tangram-solver/static/media/bootstrap-icons.39795c0b4513de014cf8.woff",
     "static/media/bootstrap-icons.woff2?": "/tangram-solver/static/media/bootstrap-icons.b7bcc075b395c14ce8c2.woff2",
     "index.html": "/tangram-solver/index.html",
-    "main.73a2e6d5.css.map": "/tangram-solver/static/css/main.73a2e6d5.css.map",
-    "main.5c1b83a0.js.map": "/tangram-solver/static/js/main.5c1b83a0.js.map",
+    "main.8fa085e6.css.map": "/tangram-solver/static/css/main.8fa085e6.css.map",
+    "main.96bf224e.js.map": "/tangram-solver/static/js/main.96bf224e.js.map",
     "811.631b5a36.chunk.js.map": "/tangram-solver/static/js/811.631b5a36.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.73a2e6d5.css",
-    "static/js/main.5c1b83a0.js"
+    "static/css/main.8fa085e6.css",
+    "static/js/main.96bf224e.js"
   ]
 }
